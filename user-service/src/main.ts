@@ -1,4 +1,9 @@
 import { NestFactory } from '@nestjs/core';
+import {
+  ValidationPipe,
+  ValidationError,
+  UnprocessableEntityException,
+} from '@nestjs/common';
 import { SwaggerModule, DocumentBuilder } from '@nestjs/swagger';
 // import 'dotenv/config';
 import { AppModule } from './app.module';
@@ -11,21 +16,38 @@ async function bootstrap() {
       preflightContinue: false,
       optionsSuccessStatus: 204,
     },
-    //logger: ['error', 'warn'],
+    logger: ['error', 'warn', 'log', 'debug', 'verbose'],
   });
+
+  app.useGlobalPipes(
+    new ValidationPipe({
+      exceptionFactory: (errors: ValidationError[]) => {
+        const message = errors.map(
+          (error) => `${Object.values(error.constraints).join(', ')}`,
+        );
+        return new UnprocessableEntityException(message);
+      },
+      skipMissingProperties: true,
+      transform: true,
+      transformOptions: {
+        enableImplicitConversion: true,
+      },
+    }),
+  );
 
   const config = new DocumentBuilder()
     .setTitle('Users API')
     .setDescription('This API allows you to manipulate users data')
     .setVersion('1.0')
     .addTag('users')
+    .addBearerAuth()
     .build();
 
   const document = SwaggerModule.createDocument(app, config);
 
-  SwaggerModule.setup('api', app, document);
+  SwaggerModule.setup('api/v1/swagger-html', app, document);
 
-  await app.listen(3000); //process.env.PORT
+  await app.listen(process.env.PORT);
   console.info(`Application is running on: ${await app.getUrl()}`);
 }
 bootstrap();

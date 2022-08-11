@@ -3,18 +3,21 @@ import { ConfigModule } from '@nestjs/config';
 import { MongooseModule } from '@nestjs/mongoose';
 import { AppController } from './app.controller';
 import { AppService } from './app.service';
+import { AuthModule } from './auth/auth.module';
 import { UsersModule } from './users/users.module';
 
 @Module({
   imports: [
-    UsersModule,
     ConfigModule.forRoot(),
-    MongooseModule.forRoot('mongodb://127.0.0.1:27017/users'),
+    MongooseModule.forRoot(process.env.DATABASE_PORT),
+    UsersModule,
+    AuthModule,
   ],
   controllers: [AppController],
   providers: [AppService],
 })
 export class AppModule {}
+// 'mongodb://127.0.0.1:27017/users'
 /* const mongoose = require('mongoose');
 const { logger } = require('../gcp/logger');
 

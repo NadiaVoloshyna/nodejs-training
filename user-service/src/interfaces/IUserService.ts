@@ -10,6 +10,8 @@ export interface IUsersService {
 
   findOne(id: string): Promise<User>;
 
+  getUserByEmail(email: string): Promise<User>;
+
   update(id: string, updateUserDto: UpdateUserDto): Promise<User>;
 
   remove(id: string): Promise<string>;

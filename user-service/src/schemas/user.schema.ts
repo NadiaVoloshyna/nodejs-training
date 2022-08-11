@@ -6,8 +6,11 @@ export class User {
   @Prop()
   username: string;
 
-  /* @Prop()
-  population: number; */
+  @Prop()
+  email: string;
+
+  @Prop()
+  password: string;
 }
 
 export type UserDocument = User & Document;

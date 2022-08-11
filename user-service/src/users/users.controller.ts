@@ -6,17 +6,29 @@ import {
   Patch,
   Param,
   Delete,
+  Inject,
+  Logger,
 } from '@nestjs/common';
-import { UsersService } from './users.service';
+import { ApiBearerAuth, ApiTags } from '@nestjs/swagger';
+import { IUsersService } from '../interfaces/IUserService';
 import { CreateUserDto } from './dto/create-user.dto';
 import { UpdateUserDto } from './dto/update-user.dto';
 
+@ApiBearerAuth()
+@ApiTags('Users')
 @Controller('users')
 export class UsersController {
-  constructor(private readonly usersService: UsersService) {}
+  private readonly logger = new Logger(UsersController.name);
+
+  constructor(
+    @Inject('IUsersService') private readonly usersService: IUsersService,
+  ) {}
 
   @Post()
   create(@Body() createUserDto: CreateUserDto) {
+    this.logger.log(
+      'someone is creating a user' + JSON.stringify(createUserDto),
+    );
     return this.usersService.create(createUserDto);
   }
 
@@ -35,7 +47,7 @@ export class UsersController {
     return this.usersService.update(id, updateUserDto);
   }
 
-  @Delete('/delete/:id')
+  @Delete(':id')
   remove(@Param('id') id: string) {
     return this.usersService.remove(id);
   }
