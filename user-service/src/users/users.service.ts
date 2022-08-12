@@ -31,7 +31,7 @@ export class UsersService implements IUsersService {
   }
 
   async getUserByEmail(email: string) {
-    return this.userModel.findOne({ email: email });
+    return await this.userModel.findOne({ email: email });
   }
 
   async update(id: string, updateUserDto: UpdateUserDto) {

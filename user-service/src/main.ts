@@ -1,3 +1,4 @@
+import 'dotenv/config';
 import { NestFactory } from '@nestjs/core';
 import {
   ValidationPipe,
@@ -5,7 +6,6 @@ import {
   UnprocessableEntityException,
 } from '@nestjs/common';
 import { SwaggerModule, DocumentBuilder } from '@nestjs/swagger';
-// import 'dotenv/config';
 import { AppModule } from './app.module';
 
 async function bootstrap() {
