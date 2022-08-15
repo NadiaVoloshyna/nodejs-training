@@ -1,4 +1,9 @@
-import { Logger, Injectable, NotFoundException } from '@nestjs/common';
+import {
+  Logger,
+  Injectable,
+  NotFoundException,
+  BadRequestException,
+} from '@nestjs/common';
 import { User, UserDocument } from '../schemas/user.schema';
 import { CreateUserDto } from './dto/create-user.dto';
 import { UpdateUserDto } from './dto/update-user.dto';
@@ -13,8 +18,12 @@ export class UsersService implements IUsersService {
   constructor(@InjectModel(User.name) private userModel: Model<UserDocument>) {}
 
   async create(createUserDto: CreateUserDto) {
-    const createdUser = new this.userModel(createUserDto);
-    return createdUser.save();
+    try {
+      const createdUser = new this.userModel(createUserDto);
+      return await createdUser.save();
+    } catch (e) {
+      throw new BadRequestException(e);
+    }
   }
 
   async findAll() {
@@ -38,7 +47,8 @@ export class UsersService implements IUsersService {
     const user = await this.findOne(id);
     user.username = updateUserDto.username ?? user.username;
     user.password = updateUserDto.password ?? user.password;
-    return user.save();
+    user.age = updateUserDto.age ?? user.age;
+    return await user.save();
   }
 
   async remove(id: string) {
@@ -47,7 +57,7 @@ export class UsersService implements IUsersService {
       this.logger.warn(`User with id:${id} doesn't exist`);
       throw new NotFoundException(`User with id:${id} doesn't exist`);
     }
-    user.remove();
+    await user.remove();
     return id;
   }
 }

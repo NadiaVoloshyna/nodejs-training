@@ -13,4 +13,13 @@ export class CreateUserDto {
   @ApiProperty()
   @IsNotEmpty()
   password: string;
+
+  @ApiProperty()
+  isActive: boolean;
+
+  @ApiProperty()
+  age: number;
+
+  /* @ApiProperty()
+  claims: string[]; */
 }
