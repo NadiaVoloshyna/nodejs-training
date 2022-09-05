@@ -27,4 +27,4 @@ jobs:
 
       - name: Run tests
         run: npm run test
-        working-directory: ./user-service
+        working-directory: ./user-service/test
