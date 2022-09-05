@@ -49,4 +49,4 @@ jobs:
         run: docker build ./user-service --file ./user-service/Dockerfile --tag nadiiavol/node-app:latest
 
       - name: Docker Push
-        run: nadiiavol/node-app:latest
+        run: docker push nadiiavol/node-app:latest
