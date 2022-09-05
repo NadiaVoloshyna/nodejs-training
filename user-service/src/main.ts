@@ -48,6 +48,6 @@ async function bootstrap() {
   SwaggerModule.setup('api/v1/swagger-html', app, document);
 
   await app.listen(process.env.PORT);
-  console.info(`Application is running on: ${await app.getUrl()}`);
+  console.info(`Application is running: ${await app.getUrl()}`);
 }
 bootstrap();
