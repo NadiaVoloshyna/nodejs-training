@@ -9,7 +9,6 @@ import {
   Inject,
   Logger,
   UseInterceptors,
-  CacheInterceptor,
   CacheTTL,
   CACHE_MANAGER,
 } from '@nestjs/common';
