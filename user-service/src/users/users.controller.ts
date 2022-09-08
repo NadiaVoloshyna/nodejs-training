@@ -10,6 +10,7 @@ import {
   Logger,
   UseInterceptors,
   CacheTTL,
+  CacheKey,
   CACHE_MANAGER,
 } from '@nestjs/common';
 import { ApiBearerAuth, ApiTags } from '@nestjs/swagger';
@@ -42,6 +43,7 @@ export class UsersController {
 
   @Get()
   // @UseInterceptors(CacheInterceptor)
+  @CacheKey('users')
   @CacheTTL(100)
   async findAll() {
     await new Promise((r) => setTimeout(r, 5000));

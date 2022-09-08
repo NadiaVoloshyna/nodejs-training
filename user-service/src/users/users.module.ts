@@ -10,7 +10,7 @@ import { APP_INTERCEPTOR } from '@nestjs/core';
   imports: [
     MongooseModule.forFeature([{ name: User.name, schema: UserSchema }]),
     CacheModule.register({
-      memory: redis,
+      store: redis,
       host: process.env.REDIS_HOST,
       port: process.env.REDIS_PORT,
     }),
