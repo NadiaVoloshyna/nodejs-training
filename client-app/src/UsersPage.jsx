@@ -26,6 +26,17 @@ class UsersPage extends Component {
         console.log(users)
     }
 
+    async addUser() {
+        const newUser = {
+            username: 'Kongo',
+            email: 'kongo@gmail.com',
+            password: 'kongo',
+            isActive: false,
+            age: 210
+        }
+        await axios.post('http://localhost:3000/users', newUser);
+    }
+
     render() {
         return (
             <UsersContainer>
@@ -36,6 +47,7 @@ class UsersPage extends Component {
                         this.state.users.map(user => 
                         <div key={user.username}>{user.username}</div>
                     )}
+                <button style={{marginTop: '100px'}} onClick={this.addUser}>Add User</button>
             </UsersContainer>
     )};
 };
