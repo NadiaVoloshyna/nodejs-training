@@ -34,7 +34,7 @@ class UsersPage extends Component {
             isActive: false,
             age: 210
         }
-        await axios.post('http://localhost:3000/users', newUser);
+        await axios.post('http://0.0.0.0:3000/users', newUser);
     }
 
     render() {
