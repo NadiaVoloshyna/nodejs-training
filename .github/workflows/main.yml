@@ -99,10 +99,10 @@ jobs:
           docker login -u ${{secrets.DOCKER_HUB_USERNAME}} -p ${{secrets.DOCKER_HUB_PASSWORD}}
 
       - name: Build the Docker image
-        run: docker build ./client-app --file ./client-app/Dockerfile --tag nadiiavol/client-app:version2.0
+        run: docker build ./client-app --file ./client-app/Dockerfile --tag nadiiavol/client-app:v2
 
       - name: Docker Push
-        run: docker push nadiiavol/client-app
+        run: docker push nadiiavol/client-app:v2
 
   # deploy-auth-middleware:
   #   if: github.event_name == 'push'
