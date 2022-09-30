@@ -14,7 +14,7 @@ const HomePage = () => {
 
   return (
     <Container>
-        <h1>Frontend</h1>
+        <h1>Frontend version 2</h1>
         <Link style={{color: 'white', marginBottom: '20px'}} to="/userspage">Users Page</Link>
         <Link style={{color: 'white'}} to="/chatpage">Chat Page</Link>
     </Container>
