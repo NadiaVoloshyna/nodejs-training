@@ -21,7 +21,7 @@ RUN npm run build
 FROM nginx:1.19-alpine as base-stage
 EXPOSE 8080
 
-COPY nginx-default.conf.template /etc/nginx/templates/default.conf.template
+# COPY nginx-default.conf.template /etc/nginx/templates/default.conf.template
 COPY --from=build-stage /app/dist /usr/share/nginx/html
 
 CMD ["nginx", "-g", "daemon off;"]
