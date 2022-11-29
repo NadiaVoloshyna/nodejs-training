@@ -75,7 +75,8 @@ const ChatPage = () => {
 
   useEffect(() => {
     const URL = "http://localhost:3001";
-    const chat = socketIOClient(URL);
+    // const chat = socketIOClient(URL);
+    const chat = socketIOClient();
 
     setIo(chat);
 
